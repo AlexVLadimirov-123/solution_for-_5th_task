@@ -13,10 +13,9 @@ class CircularQueue {
     size = s;
     arr = new int[size];
   }
-
+  ~CircularQueue() { delete[] arr; }
   bool isFull() {
-    if ((front == 0 && rear == size - 1) ||
-        (rear == (front - 1) % (size - 1))) {
+    if (rear == front) {
       return true;
     }
     return false;
@@ -39,23 +38,6 @@ class CircularQueue {
       cout << value << "Entered to queue" << endl;
     }
   }
-
-  int deletequeue() {
-    int value;
-    if (isEmpty()) {
-      cout << "Queue is empty" << endl;
-      return -1;
-    } else {
-      value = arr[front];
-      if (front == rear) {
-        front = -1;
-        rear = -1;
-      } else {
-        front = (front + 1) % size;
-      }
-      return value;
-    }
-  }
 };
 
 int main() {
@@ -66,15 +48,4 @@ int main() {
   q.enterqueue(3);
   q.enterqueue(4);
   q.enterqueue(5);
-
-  cout << "extracted from queue: " << q.deletequeue() << endl;
-  cout << "extracted from queue: " << q.deletequeue() << endl;
-
-  q.enterqueue(6);
-  q.enterqueue(7);
-
-  cout << "extracted from queue: " << q.deletequeue() << endl;
-  cout << "extracted from queue: " << q.deletequeue() << endl;
-
-  return 0;
 }
